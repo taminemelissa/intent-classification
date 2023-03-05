@@ -1,0 +1,2 @@
+#DEVICE
+CUDA_DEVICE = 0
