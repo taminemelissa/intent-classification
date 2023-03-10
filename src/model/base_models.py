@@ -7,3 +7,4 @@ class BaseModel:
     
     def device(self):
         return self._device
+    
