@@ -1,13 +1,12 @@
 from src.model.base_models import BaseModel
 from typing import Union
 from transformers import AutoModel, AutoTokenizer
-from src.gpl.model.base_models import BaseModel
 import torch
 from torch import nn
+import numpy as np
 import pytorch_lightning as pl
-from src.gpl.model.utils import get_device, mean_pool
-from typing import List
-from gpl.config import config
+from src.model.utils import get_device
+from config import config
 
 
 class SequenceClassifierModel(pl.LightningModule, BaseModel):
@@ -61,3 +60,22 @@ class SequenceClassifierModel(pl.LightningModule, BaseModel):
     def configure_optimizers(self):
         return torch.optim.AdamW(self.parameters(), lr=self.config.LEARNING_RATE)
 
+    def predict_class(self, input: str) -> int:
+        #Encode each utterance
+        utterance_encoding = self.tokenizer(input, return_tensors='pt', padding='max_length', 
+                                        truncation=True, max_length=512, add_special_tokens=True)
+        
+        utterance_encoding.to(self._device)
+
+        #Retrieve the ids and attention masks
+        utterance_ids = utterance_encoding['input_ids']
+        utterance_mask = utterance_encoding['attention_mask']
+
+        #Compute the model embeddings
+        utterance_embeddings = self.encoder(input_ids=utterance_ids, attention_mask=utterance_mask)
+
+        #Predict the utterance class
+        logits = self.classifier(utterance_embeddings)
+        preticted_class = np.argmax(logits.cpu().numpy()).flatten().item()
+        
+        return preticted_class
