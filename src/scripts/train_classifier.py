@@ -71,7 +71,7 @@ if __name__ == '__main__':
         data = test_data
         random_utterance = random.choice(data.utterances)
         label = random_utterance.label
-        ckpt = os.path.join(config.DIR_CHECKPOINTS, config.FILENAME)
+        ckpt = os.path.join(config.DIR_CHECKPOINTS, f'{config.FILENAME}.ckpt')
         fine_tuned_model = SequenceClassifierModel.load_from_checkpoint(ckpt)
         fine_tuned_model.eval()
         fine_tuned_model.freeze()
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
     def test():
         data = test_data
-        ckpt = os.path.join(config.DIR_CHECKPOINTS, config.FILENAME)
+        ckpt = os.path.join(config.DIR_CHECKPOINTS, f'{config.FILENAME}.ckpt')
         fine_tuned_model = SequenceClassifierModel.load_from_checkpoint(ckpt)
         fine_tuned_model.eval()
         fine_tuned_model.freeze()
