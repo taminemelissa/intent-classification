@@ -29,7 +29,7 @@ class SequenceClassifierModel(pl.LightningModule, BaseModel):
         utterance_embeddings = self.encoder(input_ids=utterance_ids, attention_mask=utterance_mask)
         
         #Linear classifier
-        logits = self.classifier(utterance_embeddings)
+        logits = self.classifier(utterance_embeddings.last_hidden_state[:,0]) #CLS embedding
 
         return logits, self.loss_fct(logits, labels.flatten())
     
@@ -75,7 +75,7 @@ class SequenceClassifierModel(pl.LightningModule, BaseModel):
         utterance_embeddings = self.encoder(input_ids=utterance_ids, attention_mask=utterance_mask)
 
         #Predict the utterance class
-        logits = self.classifier(utterance_embeddings)
-        preticted_class = np.argmax(logits.cpu().numpy()).flatten().item()
+        logits = self.classifier(utterance_embeddings.last_hidden_state[:,0])
+        predicted_class = np.argmax(logits.cpu().numpy()).flatten().item()
         
-        return preticted_class
+        return predicted_class
