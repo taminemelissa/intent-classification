@@ -4,7 +4,7 @@ from typing import List, Tuple
 from src.data.data_format import Utterance
 
 
-def convert_transformers_dataset_to_passages(dataset) -> List[Utterance]:
+def convert_transformers_dataset_to_utterances(dataset) -> List[Utterance]:
     """
     This function converts a Transformer Dataset into a list of Utterance objects
     """
