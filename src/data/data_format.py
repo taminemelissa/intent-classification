@@ -11,6 +11,7 @@ def ordered_dict(obj: dict) -> Union[OrderedDict, object]:
     else:
         return obj
 
+
 class Utterance:
     def __init__(self, 
                  text: str = None,
@@ -90,7 +91,7 @@ class UtteranceCollection:
         for i in indices:
             res.append(self.utterances[i])
         return res
-    
+
     def to_dict(self) -> Dict:
         res = {}
         if self.utterances:
@@ -104,19 +105,19 @@ class UtteranceCollection:
 
     def save(self, output_path: str):
         print(f'####### Save utterance collection to {output_path} #########')
-        with open(output_path, 'w', encoding = 'utf8') as out:
-            json.dump(self.to_dict(), out, ensure_ascii = False, indent = None)
-    
+        with open(output_path, 'w', encoding='utf8') as out:
+            json.dump(self.to_dict(), out, ensure_ascii=False, indent=None)
+
     def load_from_json(self, input_filename: str):
         with open(input_filename, 'r', encoding='utf8') as f:
             d = json.load(f)
         if 'meta' in d.keys():
             meta = d['meta']
         utterances = d['utterances']
-        stcs = []
+        utrs = []
         print("############# Loading utterances from json file #################")
         for utterance in tqdm(utterances):
             u = Utterance()
-            u = u.from_dict(d = utterance)
-            utterances.append(u)
-        return UtteranceCollection(utterances = utterances, meta = meta)
+            u = u.from_dict(d=utterance)
+            utrs.append(u)
+        return UtteranceCollection(utterances=utrs, meta=meta)
