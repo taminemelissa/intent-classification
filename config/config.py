@@ -13,7 +13,7 @@ DIR_CHECKPOINTS = f'{HOME}/checkpoints'
 LOGS = f'{HOME}/logs'
 
 # DATA
-DATASETNAME = 'dyda_da'
+DATASET_NAME = 'dyda_da'
 
 # HYPERPARAMETERS
 BATCH_SIZE = 12
