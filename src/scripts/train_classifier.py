@@ -19,10 +19,11 @@ if __name__ == '__main__':
     from src.model.utils import print_array_stats
     from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
+
     print('############ Preparing data for fine_tuning ################')
-    train_dataset = load_dataset('silicone', config.DATASETNAME, split='train')
-    val_dataset = load_dataset('silicone', config.DATASETNAME, split='validation')
-    test_dataset = load_dataset('silicone', config.DATASETNAME, split='test')
+    train_dataset = load_dataset('silicone', config.DATASET_NAME, split='train')
+    val_dataset = load_dataset('silicone', config.DATASET_NAME, split='validation')
+    test_dataset = load_dataset('silicone', config.DATASET_NAME, split='test')
     train_utterances = convert_transformers_dataset_to_utterances(train_dataset)
     train_data = UtteranceCollection(utterances=train_utterances)
     print('Training data:', len(train_data.utterances))
@@ -32,6 +33,7 @@ if __name__ == '__main__':
     test_utterances = convert_transformers_dataset_to_utterances(test_dataset)
     test_data = UtteranceCollection(utterances=test_utterances)
     print('Test data:', len(test_data.utterances))
+
 
     def train():
         # Prepare the model
@@ -64,6 +66,7 @@ if __name__ == '__main__':
         pl.seed_everything(config.SEED)
         trainer.fit(model, data)
 
+
     def verify():
         data = test_data
         random_utterance = random.choice(data.utterances)
@@ -72,10 +75,11 @@ if __name__ == '__main__':
         fine_tuned_model = SequenceClassifierModel.load_from_checkpoint(ckpt)
         fine_tuned_model.eval()
         fine_tuned_model.freeze()
-        fine_tuned_model.to(fine_tuned_model._device)
+        fine_tuned_model.to(fine_tuned_model.get_device)
         predicted_class = fine_tuned_model.predict_class(random_utterance.text)
         print('Predicted class:', predicted_class)
         print('True class:', label)
+
 
     def test():
         data = test_data
