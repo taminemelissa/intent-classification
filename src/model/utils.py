@@ -1,5 +1,5 @@
 import torch
-from config.config import config
+from config import config
 from typing import List
 import numpy as np
 
