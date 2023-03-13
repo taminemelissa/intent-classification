@@ -29,9 +29,9 @@ class SequenceClassifierModel(pl.LightningModule, BaseModel):
         utterance_embeddings = self.encoder(input_ids=utterance_ids, attention_mask=utterance_mask)
         
         #Linear classifier
-        logits = self.classifier(utterance_embeddings.last_hidden_state[:,0]) #CLS embedding
+        logits = self.classifier(utterance_embeddings.last_hidden_state[:,0]) #CLS embedding to classify
 
-        return logits, self.loss_fct(logits, labels.flatten())
+        return logits, self.loss_fct(logits, labels)
     
     def training_step(self, batch, batch_idx):
         utterance_ids = batch['utterance_ids']

@@ -5,6 +5,7 @@ from torch import Tensor
 import pytorch_lightning as pl
 from typing import Union, List, Optional
 from src.data.utils import process_utterance
+from config import config
 
 
 class SequenceClassifierModelDataset(Dataset):
@@ -21,7 +22,9 @@ class SequenceClassifierModelDataset(Dataset):
         utterance, label = source[0], source[1]
         utterance_encoding = self.tokenizer(utterance, return_tensors='pt', padding='max_length', 
                                             truncation=True, max_length=512, add_special_tokens=True)
-        labels = Tensor([label])
+        labels = [0]*config.CLASS_NUMBER
+        labels[label] = 1
+        labels = Tensor(labels)
         return dict(utterance_text=utterance,
                     utterance_ids=utterance_encoding['input_ids'].flatten(),
                     utterance_mask=utterance_encoding['attention_mask'].flatten(),
@@ -34,7 +37,7 @@ class SequenceClassifierModelDataModule(pl.LightningDataModule):
                  test_data: UtteranceCollection,
                  tokenizer: BertTokenizer,
                  batch_size: int = 12,
-                 num_workers: int = 4):
+                 num_workers: int = 72):
         super().__init__()
         self.batch_size = batch_size
         self.train_data = train_data
