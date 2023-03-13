@@ -17,7 +17,7 @@ class Utterance:
                  identifier: str = None,
                  da: str = None,
                  sentiment: str = None,
-                 label : int = None,
+                 label: int = None,
                  meta: Dict[str, Any] = None):
         self.text = text
         self.identifier = identifier
@@ -62,7 +62,7 @@ class Utterance:
         if 'meta' in d.keys():
             meta = d['meta']
 
-        return Utterance(text = text, identifier = identifier, da = da, sentiment = sentiment, label = label, meta = meta)
+        return Utterance(text=text, identifier=identifier, da=da, sentiment=sentiment, label=label, meta=meta)
 
 
 class UtteranceCollection:
