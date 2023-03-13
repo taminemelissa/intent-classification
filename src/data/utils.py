@@ -1,7 +1,8 @@
 import uuid
 from tqdm import tqdm
-from typing import List
-from src.data.data_format import *
+from typing import List, Tuple
+from src.data.data_format import Utterance
+
 
 def convert_transformers_dataset_to_passages(dataset) -> List[Utterance]:
     """
@@ -19,29 +20,22 @@ def convert_transformers_dataset_to_passages(dataset) -> List[Utterance]:
         if 'Dialogue_Act' in dataset[i].keys():
             da = dataset[i]['Dialogue_Act']
             meta.pop('Dialogue_Act')
-            utterance = Utterance(text = text, identifier = identifier, da = da, label = label, meta = meta)
+            utterance = Utterance(text=text, identifier=identifier, da=da, label=label, meta=meta)
         if 'Sentiment' in dataset[i].keys():
             sentiment = dataset[i]['Sentiment']
             meta.pop('Sentiment')
-            utterance = Utterance(text = text, identifier=identifier, sentiment = sentiment, label = label, meta = meta)
+            utterance = Utterance(text=text, identifier=identifier, sentiment=sentiment, label=label, meta=meta)
         utterances.append(utterance)
     print(f"################ {len(dataset['Utterance'])} formated #################")
     return utterances
+
 
 def generate_batches(input: List[object], batch_size) -> List[object]:
     for i in tqdm(range(0, len(input), batch_size)):
         yield input[i:i+batch_size]
 
     
-def split_into_train_test_val_sets(utterances: List[Utterance], train_ratio: float = 0.7, test_ratio: float=0.1) -> dict:
-    total = len(utterances)
-    train_count = int(train_ratio * total)
-    test_count = int(test_ratio * total)
-    if total - train_count - test_count > 0:
-        random.shuffle(utterances)
-        train_utterances = utterances[0:train_count]
-        test_utterances = utterances[train_count:train_count + test_count]
-        val_utterances = utterances[train_count + test_count:]
-        return {'train': train_utterances, 'test': test_utterances, 'val': val_utterances}
-    else:
-        raise Exception('Set correct ratios')
+def process_utterance(u: Utterance) -> Tuple[str, int]:
+    utterance = u.text
+    label = int(u.label)
+    return (utterance, label)
