@@ -4,7 +4,7 @@ CUDA_DEVICE = 0
 # PARAMETERS
 SEED = 42
 VERSION = 1
-FILENAME = f'bert-base-uncased-v{VERSION}'
+FILENAME = f'{ENCODER_PATH}-{DATASET_NAME}-v{VERSION}'
 
 #PATHS
 HOME = '/home/onyxia/work/intent-classification'
@@ -17,8 +17,8 @@ DATASET_NAME = 'dyda_da'
 CLASS_NUMBER = 4
 
 # MODEL
-ENCODER_PATH = 'bert-base-uncased'
-TOKENIZER_PATH = 'bert-base-uncased'
+ENCODER_PATH = 'distilbert-base-uncased'
+TOKENIZER_PATH = 'distilbert-base-uncased'
 
 
 # HYPERPARAMETERS
