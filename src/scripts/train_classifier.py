@@ -75,7 +75,7 @@ if __name__ == '__main__':
         fine_tuned_model = SequenceClassifierModel.load_from_checkpoint(ckpt)
         fine_tuned_model.eval()
         fine_tuned_model.freeze()
-        fine_tuned_model.to(fine_tuned_model.get_device)
+        fine_tuned_model.to(fine_tuned_model._device)
         predicted_class = fine_tuned_model.predict_class(random_utterance.text)
         print('Predicted class:', predicted_class)
         print('True class:', label)
@@ -94,19 +94,19 @@ if __name__ == '__main__':
         # Compute predictions and evaluate scores
         print("############ Computing predictions #############")
         for utterance in tqdm(data.utterances):
-            true = utterance.label
-            predicted = fine_tuned_model.predict_class(utterance.text)
-            scores['accuracy'] = accuracy_score(true, predicted)
+            true = [utterance.label]
+            predicted = [fine_tuned_model.predict_class(utterance.text)]
+            scores['accuracy'].append(accuracy_score(true, predicted))
             results = precision_recall_fscore_support(true, predicted, average='macro', warn_for=tuple())
             scores['precision'].append(results[0])
             scores['recall'].append(results[1])
             scores['f1score'].append(results[2])
 
         # Print the results
-        print_array_stats(scores['accuracy'], metric='Accuracy', model_name=config.FILENAME, decimal=2)
-        print_array_stats(scores['precision'], metric='Precision', model_name=config.FILENAME, decimal=2)
-        print_array_stats(scores['recall'], metric='Recall', model_name=config.FILENAME, decimal=2)
-        print_array_stats(scores['f1score'], metric='F1 score', model_name=config.FILENAME, decimal=2)
+        print_array_stats(scores['accuracy'], metric='Accuracy', model_name=config.FILENAME, decimal=3)
+        print_array_stats(scores['precision'], metric='Precision', model_name=config.FILENAME, decimal=3)
+        print_array_stats(scores['recall'], metric='Recall', model_name=config.FILENAME, decimal=3)
+        print_array_stats(scores['f1score'], metric='F1 score', model_name=config.FILENAME, decimal=3)
     
     train()
     #verify()
