@@ -14,6 +14,12 @@ LOGS = f'{HOME}/logs'
 
 # DATA
 DATASET_NAME = 'dyda_da'
+CLASS_NUMBER = 4
+
+# MODEL
+ENCODER_PATH = 'bert-base-uncased'
+TOKENIZER_PATH = 'bert-base-uncased'
+
 
 # HYPERPARAMETERS
 BATCH_SIZE = 12
