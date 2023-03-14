@@ -25,6 +25,10 @@ def convert_transformers_dataset_to_utterances(dataset) -> List[Utterance]:
             sentiment = dataset[i]['Emotion']
             meta.pop('Emotion')
             utterance = Utterance(text=text, identifier=identifier, sentiment=sentiment, label=label, meta=meta)
+        if 'Sentiment' in dataset[i].keys():
+            sentiment = dataset[i]['Sentiment']
+            meta.pop('Sentiment')
+            utterance = Utterance(text=text, identifier=identifier, sentiment=sentiment, label=label, meta=meta)
         utterances.append(utterance)
     print(f"################ {len(dataset['Utterance'])} formated #################")
     return utterances
