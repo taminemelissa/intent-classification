@@ -102,6 +102,16 @@ class UtteranceCollection:
         if self.meta:
             res.update({'meta': self.meta})
         return res
+    
+    def random_subset(self, k:int) -> List[Utterance]:
+        """
+        Return a random subset of length k of the collection of utterances
+        """
+        indices = random.choices(range(0, len(self.utterances)), k=k)
+        res = []
+        for i in indices:
+            res.append(self.utterances[i])
+        return res
 
     def save(self, output_path: str):
         print(f'####### Save utterance collection to {output_path} #########')
