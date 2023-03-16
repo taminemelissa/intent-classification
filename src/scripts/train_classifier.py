@@ -25,8 +25,8 @@ if __name__ == '__main__':
         train_dataset = create_balanced_dataset(config.DATASET_NAME, 'train')
         val_dataset = create_balanced_dataset(config.DATASET_NAME, 'validation')
     else:
-    train_dataset = load_dataset('silicone', config.DATASET_NAME, split='train')
-    val_dataset = load_dataset('silicone', config.DATASET_NAME, split='validation')
+        train_dataset = load_dataset('silicone', config.DATASET_NAME, split='train')
+        val_dataset = load_dataset('silicone', config.DATASET_NAME, split='validation')
     test_dataset = load_dataset('silicone', config.DATASET_NAME, split='test')
     train_utterances = convert_transformers_dataset_to_utterances(train_dataset)
     train_data = UtteranceCollection(utterances=train_utterances)
@@ -112,6 +112,6 @@ if __name__ == '__main__':
         print_array_stats(scores['recall'], metric='Recall', model_name=config.FILENAME, decimal=3)
         print_array_stats(scores['f1score'], metric='F1 score', model_name=config.FILENAME, decimal=3)
     
-    train()
-    #verify()
-    #test()
+    #train()
+    verify()
+    test()
