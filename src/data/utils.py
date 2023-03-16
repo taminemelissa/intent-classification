@@ -2,7 +2,8 @@ import uuid
 from tqdm import tqdm
 from typing import List, Tuple
 from src.data.data_format import Utterance
-from datasets import Dataset
+from datasets import Dataset, load_dataset
+import pandas as pd
 
 
 def convert_transformers_dataset_to_utterances(dataset) -> List[Utterance]:

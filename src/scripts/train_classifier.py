@@ -112,6 +112,6 @@ if __name__ == '__main__':
         print_array_stats(scores['recall'], metric='Recall', model_name=config.FILENAME, decimal=3)
         print_array_stats(scores['f1score'], metric='F1 score', model_name=config.FILENAME, decimal=3)
     
-    #train()
-    verify()
-    test()
+    train()
+    #verify()
+    #test()
