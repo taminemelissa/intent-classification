@@ -10,10 +10,11 @@ LOGS = f'{HOME}/logs'
 # DATA
 DATASET_NAME = 'dyda_da'
 CLASS_NUMBER = 4
+BALANCE = 'False'
 
 # MODEL
-ENCODER_PATH = 'distilbert-base-uncased'
-TOKENIZER_PATH = 'distilbert-base-uncased'
+ENCODER_PATH = 'bert-base-uncased'
+TOKENIZER_PATH = 'bert-base-uncased'
 
 # PARAMETERS
 SEED = 42
@@ -21,6 +22,6 @@ VERSION = 1
 FILENAME = f'{ENCODER_PATH}-{DATASET_NAME}-v{VERSION}'
 
 # HYPERPARAMETERS
-BATCH_SIZE = 12
+BATCH_SIZE = 8
 LEARNING_RATE = 0.00001
 NUM_EPOCHS = 2

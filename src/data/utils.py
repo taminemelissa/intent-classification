@@ -43,3 +43,30 @@ def process_utterance(u: Utterance) -> Tuple[str, int]:
     utterance = u.text
     label = int(u.label)
     return (utterance, label)
+
+def create_balanced_dataset(dataset_name: str, dataset_split: str) -> Dataset:
+    dataset = load_dataset("silicone", dataset_name, split=dataset_split)
+    df = dataset.to_pandas()
+    if 'Dialogue_Act' in df.columns:
+        min_occurrences = df['Dialogue_Act'].value_counts().min()
+        subsets = []
+        for classe in df['Dialogue_Act'].unique():
+            subset = df[df['Dialogue_Act'] == classe].sample(min_occurrences)
+            subsets.append(subset)
+        balanced_df = pd.concat(subsets)
+    if 'Sentiment' in df.columns:
+        min_occurrences = df['Sentiment'].value_counts().min()
+        subsets = []
+        for classe in df['Sentiment'].unique():
+            subset = df[df['Sentiment'] == classe].sample(min_occurrences)
+            subsets.append(subset)
+        balanced_df = pd.concat(subsets)
+    if 'Emotion' in df.columns:
+        min_occurrences = df['Emotion'].value_counts().min()
+        subsets = []
+        for classe in df['Emotion'].unique():
+            subset = df[df['Emotion'] == classe].sample(min_occurrences)
+            subsets.append(subset)
+        balanced_df = pd.concat(subsets)
+    balanced_dataset = Dataset.from_pandas(balanced_df)
+    return balanced_dataset

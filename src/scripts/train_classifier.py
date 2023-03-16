@@ -15,12 +15,16 @@ if __name__ == '__main__':
     from tqdm import tqdm
     from config import config
     from datasets import load_dataset
-    from src.data.utils import convert_transformers_dataset_to_utterances
+    from src.data.utils import convert_transformers_dataset_to_utterances, create_balanced_dataset
     from src.model.utils import print_array_stats
     from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 
     print('############ Preparing data for fine_tuning ################')
+    if config.BALANCE == 'True':
+        train_dataset = create_balanced_dataset(config.DATASET_NAME, 'train')
+        val_dataset = create_balanced_dataset(config.DATASET_NAME, 'validation')
+    else:
     train_dataset = load_dataset('silicone', config.DATASET_NAME, split='train')
     val_dataset = load_dataset('silicone', config.DATASET_NAME, split='validation')
     test_dataset = load_dataset('silicone', config.DATASET_NAME, split='test')
