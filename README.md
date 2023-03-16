@@ -2,16 +2,6 @@
 
 This repository contains the code of the paper: [Fine-tuning Pre-trained Language Models for Dialog Act Classification and Sentiment Analysis](https://www.overleaf.com/project/63e2b657fad9f26ee64d7c3c).
 
-## Quick Links
-
-- [Overview](##Overview)
-- [Reproduce](#reproduce)
-- [Data](#data)
-- [Environment](#environment)
-- [Scripts](#scripts)
-- [How](#how)
-- [Results](###results)
-
 ## Overview
 
 This project presents an approach for fine-tuning pre-trained language models to perform dialog act classification or sentiment/emotion analysis. We start with a pre-trained language model and fine-tune it on task-specific datasets from **SILICONE** using transfer learning techniques. Our approach improve the model's ability to capture task-specific nuances while retaining its pre-existing language understanding capabilities. We experiment with different pre-trained models and compare their performances. We also perform undersampling on training data to evaluate the performance gain associated with data balancing. Overall, our findings suggest that fine-tuning pre-trained language models is an effective approach for improving the performance of dialog act classification and sentiment analysis models. Also,
