@@ -38,12 +38,12 @@ pip install -r requirements.txt
 2. Train a model
 ```bash
 cd src/scripts/
-python train_classifier.py après avoir décommenter train() et commenter verify() et test()
+python train_classifier.py after uncommenting train() and commenting verify() and test()
 ```
 3. Evaluate a model
 ```bash
 cd src/scripts/
-python train_classifier.py après avoir commenter train() et décommenter verify() et test()
+python train_classifier.py after uncommenting train() et commenting verify() et test()
 ```
 
 ## Results
