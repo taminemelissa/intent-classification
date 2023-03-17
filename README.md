@@ -47,3 +47,5 @@ python train_classifier.py after uncommenting train() et commenting verify() et 
 ```
 
 ## Results
+
+![results](docs/results.png)
